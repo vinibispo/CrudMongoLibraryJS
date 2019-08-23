@@ -14,6 +14,17 @@
     "no-consecutive-blank-lines": false,
     "object-literal-sort-keys": false,
     "ordered-imports": false,
+    "semicolon": [true, "never"],
+    "no-var-keyword": true,
+    "prefer-for-of": true,
+    "triple-equals": true,
+    "only-arrow-functions": true,
+    "curly": [true, "as-needed"],
+    "no-namespace": false,
+    "no-string-literal": false,
+    "arrow-return-shorthand": true,
+    "arrow-parens": [true, "ban-single-arg-parens"],
+    "eofline": true,
     "quotemark": [true, "single"]
   }
 }
