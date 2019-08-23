@@ -3,7 +3,10 @@
     <div class="content card">
       <div class="header">
         <div class="search-wrapper">
-          <app-search/>
+          <app-search
+            v-model="search"
+          />
+          {{search}}
         </div>
         <div class="options">
           
@@ -23,7 +26,10 @@ import Search from '@/components/Search.vue'
     'app-search': Search,
   },
 })
-export default class App extends Vue {}
+export default class App extends Vue {
+
+  search: string = ''
+}
 
 </script>
 
@@ -39,6 +45,7 @@ export default class App extends Vue {}
   height: 100%;
   display: flex;
   justify-content: center;
+  align-items: flex-start;
 }
 
 .content {
