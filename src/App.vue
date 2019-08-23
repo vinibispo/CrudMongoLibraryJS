@@ -11,6 +11,9 @@
           <app-options/>
         </div>
       </div>
+      <div class="books">
+        <span v-for='b of books' :key='b.id'>{{b.title}}</span>
+      </div>
     </div>
   </div>
 </template>
@@ -18,8 +21,12 @@
 <script lang='ts'>
 
 import { Component, Vue } from 'vue-property-decorator'
+import { State } from 'vuex-class'
+
 import Search from '@/components/Search.vue'
 import Options from '@/components/Options.vue'
+
+import { Book } from './store'
 
 @Component({
   components: {
@@ -28,6 +35,7 @@ import Options from '@/components/Options.vue'
   },
 })
 export default class App extends Vue {
+  @State books!: Book[]
 
   search: string = ''
 }

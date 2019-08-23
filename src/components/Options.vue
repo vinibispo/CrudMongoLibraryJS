@@ -1,10 +1,10 @@
 <template>
   <div class="card options">
     <div class="btn-wrapper">
-      <opt-button/>
+      <opt-button back-color='#6657FF'/>
     </div>
     <div class="btn-wrapper">
-      <opt-button/>
+      <opt-button back-color='#FF5757'/>
     </div>
   </div>
 </template>

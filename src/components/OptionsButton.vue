@@ -1,6 +1,6 @@
 <template>
   <div class="btn" :class="{hover: onHover}" @mouseenter="onHover = true" @mouseleave="onHover = false">
-    <div class="path"></div>
+    <div class="path" :style='{backgroundColor: backColor}'></div>
     <span class="name">test</span>
   </div>
 </template>
@@ -12,6 +12,7 @@ import { Component, Vue, Prop } from 'vue-property-decorator'
 @Component
 export default class SearchComp extends Vue {
   @Prop(String) iconName!: string
+  @Prop(String) backColor!: string
 
   onHover: boolean = false
 }
@@ -31,7 +32,6 @@ export default class SearchComp extends Vue {
 }
 
 .path {
-  background-color: #FF5757;
   clip-path: circle(0px);
   position: absolute;
   transition-duration: .3s;
