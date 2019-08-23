@@ -10,7 +10,7 @@
 import { Component, Vue, Prop } from 'vue-property-decorator'
 
 @Component
-export default class SearchComp extends Vue {
+export default class ButtonComp extends Vue {
   @Prop(String) iconName!: string
   @Prop(String) backColor!: string
 

@@ -24,12 +24,12 @@ export default new Vuex.Store({
       {
         id: 'book2',
         title: 'book2',
-        descriptions: 'desc2',
+        description: 'desc2',
       },
       {
         id: 'book3',
         title: 'book3',
-        descriptions: 'desc3',
+        description: 'desc3',
       },
     ],
   } as State,

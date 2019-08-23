@@ -19,7 +19,7 @@ import Button from '@/components/OptionsButton.vue'
     'opt-button': Button,
   }
 })
-export default class SearchComp extends Vue {}
+export default class OptionsComp extends Vue {}
 
 </script>
 

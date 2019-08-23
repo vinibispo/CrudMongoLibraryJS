@@ -12,7 +12,12 @@
         </div>
       </div>
       <div class="books">
-        <span v-for='b of books' :key='b.id'>{{b.title}}</span>
+        <span v-for='b of books' :key='b.id'>
+          <app-book
+            :title='b.title'
+            :description='b.description'
+          />
+        </span>
       </div>
     </div>
   </div>
@@ -25,6 +30,7 @@ import { State } from 'vuex-class'
 
 import Search from '@/components/Search.vue'
 import Options from '@/components/Options.vue'
+import BookComp from '@/components/Book.vue'
 
 import { Book } from './store'
 
@@ -32,6 +38,7 @@ import { Book } from './store'
   components: {
     'app-search': Search,
     'app-options': Options,
+    'app-book': BookComp,
   },
 })
 export default class App extends Vue {
@@ -71,6 +78,10 @@ export default class App extends Vue {
   height: 40px;
   flex-basis: 15%;
   margin-left: 20px;
+}
+
+.books {
+  margin-top: 20px;
 }
 
 .header {
