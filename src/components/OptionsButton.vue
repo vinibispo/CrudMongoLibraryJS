@@ -1,0 +1,57 @@
+<template>
+  <div class="btn" :class="{hover: onHover}" @mouseenter="onHover = true" @mouseleave="onHover = false">
+    <div class="path"></div>
+    <span class="name">test</span>
+  </div>
+</template>
+
+<script lang='ts'>
+
+import { Component, Vue, Prop } from 'vue-property-decorator'
+
+@Component
+export default class SearchComp extends Vue {
+  @Prop(String) iconName!: string
+
+  onHover: boolean = false
+}
+
+</script>
+
+<style scoped>
+
+.btn, .content, .path {
+  width: 100%;
+  height: 100%;
+}
+
+.btn {
+  position: relative;
+  cursor: pointer;
+}
+
+.path {
+  background-color: #FF5757;
+  clip-path: circle(0px);
+  position: absolute;
+  transition-duration: .3s;
+}
+
+.name {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%,-50%);
+  transition-duration: .3s;
+}
+
+.btn.hover .path {
+  clip-path: circle(50px);
+}
+
+.btn.hover .name {
+  color: white;
+}
+
+
+</style>

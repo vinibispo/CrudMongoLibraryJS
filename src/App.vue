@@ -7,8 +7,8 @@
             v-model="search"
           />
         </div>
-        <div class="options">
-          
+        <div class="options-wrapper">
+          <app-options/>
         </div>
       </div>
     </div>
@@ -19,10 +19,12 @@
 
 import { Component, Vue } from 'vue-property-decorator'
 import Search from '@/components/Search.vue'
+import Options from '@/components/Options.vue'
 
 @Component({
   components: {
     'app-search': Search,
+    'app-options': Options,
   },
 })
 export default class App extends Vue {
@@ -54,6 +56,17 @@ export default class App extends Vue {
 
 .search-wrapper {
   height: 40px;
+  flex-basis: 85%;
+}
+
+.options-wrapper {
+  height: 40px;
+  flex-basis: 15%;
+  margin-left: 20px;
+}
+
+.header {
+  display: flex;
 }
 
 </style>
