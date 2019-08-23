@@ -1,12 +1,11 @@
 <template>
   <div id="app">
-    <div class="content card">
+    <div class="content">
       <div class="header">
         <div class="search-wrapper">
           <app-search
             v-model="search"
           />
-          {{search}}
         </div>
         <div class="options">
           
@@ -51,6 +50,10 @@ export default class App extends Vue {
 .content {
   flex-basis: 700px;
   margin-top: 150px;  
+}
+
+.search-wrapper {
+  height: 40px;
 }
 
 </style>

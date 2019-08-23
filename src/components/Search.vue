@@ -1,6 +1,9 @@
 <template>
-  <div>
-    <input v-model="search"/>
+  <div class="card search">
+    <input
+      v-model="search"
+      class="input"
+    />
   </div>
 </template>
 
@@ -25,3 +28,26 @@ export default class SearchComp extends Vue {
 }
 
 </script>
+
+<style scoped>
+
+.search {
+  position: relative;
+  height: 100%;
+}
+
+.input {
+  width: 100%;
+  position: absolute;
+  top: 50%;
+  padding: 0 8px;
+  transform: translateY(-50%);
+  box-sizing: border-box;
+  border: none;
+  outline: none;
+  border-radius: 6px;
+  font-size: 1em;
+  font-family: 'Work Sans';
+}
+
+</style>
