@@ -1,0 +1,20 @@
+
+@font-face {
+  font-family: 'Work Sans';
+  src: url('/assets/WorkSans-Regular');
+}
+
+body {
+  margin: 0;
+  font-family: 'Work Sans';
+}
+
+body, input {
+  color: #707070;
+}
+
+.card {
+  border-radius: 6px;
+  background-color: white;
+  box-shadow: 0 4px 8px rgba(0,0,0,.15);
+}
