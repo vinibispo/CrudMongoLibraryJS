@@ -1,10 +1,13 @@
 <template>
   <div class="card options">
     <div class="btn-wrapper">
-      <opt-button back-color='#6657FF'/>
+      <opt-button back-color='#6657FF' icon="plus"/>
     </div>
     <div class="btn-wrapper">
-      <opt-button back-color='#FF5757'/>
+      <opt-button back-color='#6657FF' icon="edit"/>
+    </div>
+    <div class="btn-wrapper">
+      <opt-button back-color='#6657FF' icon="trash"/>
     </div>
   </div>
 </template>
@@ -35,7 +38,7 @@ export default class OptionsComp extends Vue {}
 }
 
 .btn-wrapper {
-  flex-basis: 50%;
+  flex-basis: 33.33%;
 }
 
 </style>

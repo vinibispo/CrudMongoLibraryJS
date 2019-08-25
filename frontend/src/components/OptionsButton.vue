@@ -1,7 +1,7 @@
 <template>
   <div class="btn" :class="{hover: onHover}" @mouseenter="onHover = true" @mouseleave="onHover = false">
     <div class="path" :style='{backgroundColor: backColor}'></div>
-    <span class="name">test</span>
+    <span class="name"><i :class="`fas fa-sm fa-${icon}`"></i></span>
   </div>
 </template>
 
@@ -11,7 +11,7 @@ import { Component, Vue, Prop } from 'vue-property-decorator'
 
 @Component
 export default class ButtonComp extends Vue {
-  @Prop(String) iconName!: string
+  @Prop(String) icon!: string
   @Prop(String) backColor!: string
 
   onHover: boolean = false
@@ -34,7 +34,7 @@ export default class ButtonComp extends Vue {
 .path {
   clip-path: circle(0px);
   position: absolute;
-  transition-duration: .3s;
+  transition-duration: .4s;
 }
 
 .name {
@@ -42,7 +42,7 @@ export default class ButtonComp extends Vue {
   top: 50%;
   left: 50%;
   transform: translate(-50%,-50%);
-  transition-duration: .3s;
+  transition-duration: .4s;
 }
 
 .btn.hover .path {
