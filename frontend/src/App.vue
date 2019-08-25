@@ -12,13 +12,16 @@
         </div>
       </div>
       <div class="books">
-        <span v-for='b of books' :key='b.id'>
-          <app-book
-            :title='b.title'
-            :description='b.description'
-          />
-        </span>
+        <transition-group name='fade'>
+          <div v-for='b of getBooks' :key='b.id'>
+            <app-book
+              :title='b.title'
+              :description='b.description'
+            />
+          </div>
+        </transition-group>
       </div>
+      <div style="height: 100px;"></div>
     </div>
   </div>
 </template>
@@ -45,6 +48,10 @@ export default class App extends Vue {
   @State books!: Book[]
 
   search: string = ''
+
+  get getBooks(): Book[] {
+    return this.books.filter(el => el.title.toLowerCase().includes(this.search.toLowerCase()))
+  }
 }
 
 </script>
@@ -54,6 +61,16 @@ export default class App extends Vue {
 
 <style scoped>
 
+.fade-leave, .fade-enter-to {
+  opacity: 1;
+  transition-duration: .3s;
+}
+
+.fade-leave-to, .fade-enter {
+  opacity: 0;
+  transition-duration: .3s;
+}
+
 #app {
   background-color: #FBFBFC;
   position: fixed;
@@ -62,6 +79,7 @@ export default class App extends Vue {
   display: flex;
   justify-content: center;
   align-items: flex-start;
+  overflow: auto;
 }
 
 .content {
