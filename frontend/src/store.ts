@@ -10,11 +10,13 @@ export interface Book {
 }
 
 interface State {
+  apiState: 'error' | 'loading' | 'alright'
   books: Book[]
 }
 
 export default new Vuex.Store({
   state: {
+    apiState: 'alright',
     books: [
       {
         id: 'book1',

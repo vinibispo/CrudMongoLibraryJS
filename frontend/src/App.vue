@@ -12,7 +12,7 @@
         </div>
       </div>
       <div class="books">
-        <transition-group name='fade'>
+        <transition-group v-if='reqAlright && getBooks.length > 0' name='fade'>
           <div v-for='b of getBooks' :key='b.id'>
             <app-book
               :title='b.title'
@@ -20,6 +20,9 @@
             />
           </div>
         </transition-group>
+        <msg-comp v-elseif="reqAlright && getBooks.length === 0"/>
+        <msg-comp v-elseif="isAppLoading"/>
+        <msg-comp v-elseif="reqError"/>
       </div>
       <div style="height: 100px;"></div>
     </div>
@@ -46,11 +49,21 @@ import { Book } from './store'
 })
 export default class App extends Vue {
   @State books!: Book[]
+  @State apiState!: 'error' | 'loading' | 'alright'
 
   search: string = ''
 
   get getBooks(): Book[] {
     return this.books.filter(el => el.title.toLowerCase().includes(this.search.toLowerCase()))
+  }
+  get isAppLoading(): boolean {
+    return this.apiState === 'loading'
+  }
+  get reqError(): boolean {
+    return this.apiState === 'error'
+  }
+  get reqAlright(): boolean {
+    return this.apiState === 'alright'
   }
 }
 
