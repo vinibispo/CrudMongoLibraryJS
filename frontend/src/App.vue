@@ -20,9 +20,19 @@
             />
           </div>
         </transition-group>
-        <msg-comp v-elseif="reqAlright && getBooks.length === 0"/>
-        <msg-comp v-elseif="isAppLoading"/>
-        <msg-comp v-elseif="reqError"/>
+        <app-msg v-else-if="reqAlright && getBooks.length === 0"
+          icon='sad-cry'
+          msg='Você não tem livros na biblioteca.'
+        />
+        <app-msg v-else-if="reqError"
+          icon='sad-tear'
+          msg='Um erro ocorreu ao baixar os livros.'
+        />
+        <app-msg v-else-if="isAppLoading"
+          icon='circle-notch'
+          msg='Os seus livros estão sendo baixados.'
+          :spin='true'
+        />
       </div>
       <div style="height: 100px;"></div>
     </div>
@@ -37,12 +47,14 @@ import { State } from 'vuex-class'
 import Search from '@/components/Search.vue'
 import Options from '@/components/Options.vue'
 import BookComp from '@/components/Book.vue'
+import Message from '@/components/MessageComp.vue'
 
 import { Book } from './store'
 
 @Component({
   components: {
     'app-search': Search,
+    'app-msg': Message,
     'app-options': Options,
     'app-book': BookComp,
   },
