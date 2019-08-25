@@ -12,29 +12,35 @@
         </div>
       </div>
       <div class="books">
-        <transition-group v-if='reqAlright && getBooks.length > 0' name='fade'>
-          <div v-for='b of getBooks' :key='b.id'>
-            <app-book
-              :title='b.title'
-              :description='b.description'
-            />
-          </div>
-        </transition-group>
-        <app-msg v-else-if="reqAlright && getBooks.length === 0"
-          icon='sad-cry'
-          msg='Você não tem livros na biblioteca.'
-        />
-        <app-msg v-else-if="reqError"
-          icon='sad-tear'
-          msg='Um erro ocorreu ao baixar os livros.'
-        />
-        <app-msg v-else-if="isAppLoading"
-          icon='circle-notch'
-          msg='Os seus livros estão sendo baixados.'
-          :spin='true'
-        />
+        <transition name='fade' mode='out-in'>
+          <transition-group key='tras' v-if='showBooks' name='fade'>
+            <div v-for='b of getBooks' :key='b.id'>
+              <app-book
+                :title='b.title'
+                :description='b.description'
+              />
+            </div>
+          </transition-group>
+          <app-msg v-else-if="booksNotFound" key='doesnotexit'
+            icon='search'
+            msg='Esse livro não existe na sua biblioteca.'
+          />
+          <app-msg v-else-if="noBooksOnLibrary" key='donthavebooks'
+            icon='sad-cry'
+            msg='Você não tem livros na biblioteca.'
+          />
+          <app-msg v-else-if="reqError" key='errorondownload'
+            icon='sad-tear'
+            msg='Um erro ocorreu ao baixar os livros.'
+          />
+          <app-msg v-else-if="isAppLoading" key='beingdownloaded'
+            icon='circle-notch'
+            msg='Os seus livros estão sendo baixados.'
+            :spin='true'
+          />
+        </transition>
       </div>
-      <div style="height: 100px;"></div>
+      <div style="height: 50px;"></div>
     </div>
   </div>
 </template>
@@ -67,6 +73,15 @@ export default class App extends Vue {
 
   get getBooks(): Book[] {
     return this.books.filter(el => el.title.toLowerCase().includes(this.search.toLowerCase()))
+  }
+  get showBooks(): boolean {
+    return this.reqAlright && this.getBooks.length > 0 && this.search === ''
+  }
+  get booksNotFound(): boolean {
+    return this.reqAlright && this.getBooks.length === 0 && this.search !== ''
+  }
+  get noBooksOnLibrary(): boolean {
+    return this.reqAlright && this.getBooks.length === 0 && this.search === ''
   }
   get isAppLoading(): boolean {
     return this.apiState === 'loading'
