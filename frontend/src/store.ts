@@ -61,6 +61,14 @@ export default new Vuex.Store({
         title, description, id: getId(),
       })
     },
+    editBook(state: State, {title, description, id}: {title: string, id: string, description: string}) {
+      const i = state.books.findIndex(el => el.id === id)
+      const slice = state.books.slice()
+      slice.splice(i, 1, {
+        id, description, title,
+      })
+      state.books = slice.slice()
+    },
   },
   actions: {
 

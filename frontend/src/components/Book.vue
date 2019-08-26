@@ -7,6 +7,7 @@
         <transition name='fade'>
           <div class="options">
             <template v-if='!editing'>
+              <span @click.prevent='EditBook'><i class="fas icon fa-sm fa-edit"></i></span>
               <span @click.prevent='deleteBook'><i class="fas icon fa-sm fa-trash"></i></span>
             </template>
             <template v-else>
@@ -40,6 +41,7 @@ export default class BookComp extends Vue {
 
   @Mutation deleteBookById!: (id: string) => void
   @Mutation addBook!: (obj: {title: string, description: string}) => void
+  @Mutation editBook!: (obj: {id: string, title: string, description: string}) => void
 
   inpTitle: string = ''
   inpDesc: string = ''
@@ -59,6 +61,8 @@ export default class BookComp extends Vue {
 
   cancel() {
     this.$emit('cancel')
+    if (this.id)
+      this.editing = false
   }
   confirm() {
     if (!this.id) {
@@ -67,11 +71,22 @@ export default class BookComp extends Vue {
         description: this.inpDesc,
       })
       this.$emit('cancel')
+    } else if (this.editing === true) {
+      this.editBook({
+        id: this.id,
+        description: this.inpDesc,
+        title: this.inpTitle,
+      })
+      this.editing = false
     }
   }
   toggleShow() {
-    if (this.id)
+    if (this.id && this.editing !== true)
       this.showing = !this.showing
+  }
+  EditBook() {
+    this.editing = true
+    this.showing = true
   }
   deleteBook() {
     this.deleteBookById(this.id)
@@ -84,6 +99,7 @@ export default class BookComp extends Vue {
 
 .icon {
   transition: color .3s;
+  margin-left: 8px;
 }
 
 .input {
@@ -94,10 +110,6 @@ export default class BookComp extends Vue {
   font-size: 1em;
   font-family: 'Work Sans';
   outline: none;
-}
-
-.special {
-  transition: color .3s;
 }
 
 .icon:hover {
@@ -131,10 +143,6 @@ export default class BookComp extends Vue {
 
 .book-wrapper.hover:hover {
   background-color: #9ECBEC;
-}
-
-.special:hover {
-  color: #9ECBEC;
 }
 
 .title {
