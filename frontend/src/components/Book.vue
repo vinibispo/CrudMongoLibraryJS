@@ -2,7 +2,12 @@
   <div class="book-wrapper card">
     <div class="book">
       <div class="title" @click='showing = !showing'>
-        {{title}}
+        <span>{{title}}</span>
+        <transition name='fade'>
+          <div v-if='!showing' class="options">
+            <span @click='deleteBook'>a</span>
+          </div>
+        </transition>
       </div>
       <transition name='desc-trans'>
         <div v-show='showing' class="desc">
@@ -16,18 +21,35 @@
 <script lang='ts'>
 
 import { Component, Vue, Prop, Watch } from 'vue-property-decorator'
+import { Mutation } from 'vuex-class'
 
 @Component
-export default class BookComp extends Vue {
+export default class BookComp extends Vue {  
   @Prop(String) title!: string
   @Prop(String) description!: string
+  @Prop(String) id!: string
+
+  @Mutation deleteBookById!: (id: string) => void
 
   showing: boolean = false
+
+  deleteBook() {
+    this.deleteBookById(this.id)
+  }
 }
 
 </script>
 
 <style scoped>
+
+.options {
+  position: absolute;
+  right: 7px;
+  top: 0;
+  height: 100%;
+  display: flex;
+  align-items: center;
+}
 
 .book-wrapper {
   margin-bottom: 6px;
@@ -38,6 +60,10 @@ export default class BookComp extends Vue {
 
 .book-wrapper:hover {
   background-color: #DBDEFF;
+}
+
+.title {
+  position: relative;
 }
 
 .desc, .title {

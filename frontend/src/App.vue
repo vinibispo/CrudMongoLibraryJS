@@ -22,6 +22,7 @@
               <app-book
                 :title='b.title'
                 :description='b.description'
+                :id='b.id'
               />
             </div>
           </transition-group>
