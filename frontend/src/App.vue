@@ -9,13 +9,19 @@
         </div>
         <div class="options-wrapper">
           <app-options
-            :confirm='confirmOptions'
             @add="addBook"
-            @cancel="cancelOptions"
           />
         </div>
       </div>
       <div class="books">
+        <transition name='add-book'>
+          <app-book v-if='addingBook' class='add-book-edit'
+            :adding='true'
+            :title='""'
+            :description='""'
+            @cancel='v => addingBook = false'
+          />
+        </transition>
         <transition name='fade' mode='out-in'>
           <transition-group key='tras' v-if='showBooks' name='fade'>
             <div v-for='b of getBooks' :key='b.id'>
@@ -75,16 +81,10 @@ export default class App extends Vue {
   @State apiState!: 'error' | 'loading' | 'alright'
 
   search: string = ''
-  optionType: 'add' | '' = ''
-  confirmOptions: boolean = false
+  addingBook: boolean = false
 
   addBook() {
-    this.optionType = 'add'
-    this.confirmOptions = true
-  }
-  cancelOptions() {
-    this.confirmOptions = false
-    this.optionType = ''
+    this.addingBook = true
   }
 
   get getBooks(): Book[] {
@@ -116,6 +116,27 @@ export default class App extends Vue {
 </style>
 
 <style scoped>
+
+.add-book-enter, .add-book-leave-to {
+  height: 0;
+  min-height: 0 !important;
+  transform: scale(.6,.6);
+  transition: height .4s, transform .4s;
+  margin: 0 0 !important;
+}
+
+.add-book-enter-to, .add-book-leave {
+  height: 92px;
+  transform: scale(1,1);
+  margin: 20px 0 !important;
+  min-height: 0 !important;
+  transition: height .4s, transform .4s;
+}
+
+.add-book-edit {
+  margin: 20px 0;
+  overflow: hidden !important;
+}
 
 #app {
   background-color: white;

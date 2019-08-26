@@ -40,6 +40,11 @@ export default new Vuex.Store({
       const i = state.books.findIndex(el => el.id === id)
       state.books.splice(i, 1)
     },
+    addBook(state: State, {title, description}: {title: string, description: string}) {
+      state.books.push({
+        title, description, id: 'asdfasdfasdf',
+      })
+    },
   },
   actions: {
 

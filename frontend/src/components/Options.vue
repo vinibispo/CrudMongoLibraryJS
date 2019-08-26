@@ -2,9 +2,9 @@
   <transition name='fade' mode='out-in'>
     <div v-if='!confirm' class="card options" key='!confirm'>
       <div class="btn-wrapper">
-        <div class="btn" :class="{hover: onHover}" @mouseenter="onHover = true" @mouseleave="onHover = false" @click="$emit('click')">
-          <div class="path" style='background-color: #6657FF'></div>
-          <span class="name"><i class="fas fa-sm fa-trash"></i></span>
+        <div class="btn" :class="{hover: onHover}" @mouseenter="onHover = true" @mouseleave="onHover = false" @click="$emit('add')">
+          <div class="path" style='background-color: #949DFF'></div>
+          <span class="name"><i class="fas fa-sm fa-plus"></i></span>
         </div>
       </div>
     </div>
