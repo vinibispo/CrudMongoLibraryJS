@@ -1,8 +1,10 @@
 <template>
   <div class="card search">
+    <i class="fas fa-sm fa-search icon"></i>
     <input
-      v-model="search"
       class="input"
+      placeholder="Pesquisar..."
+      v-model="search"
     />
   </div>
 </template>
@@ -41,13 +43,24 @@ export default class SearchComp extends Vue {
   position: absolute;
   top: 50%;
   padding: 0 8px;
+  padding-left: 26px;
   transform: translateY(-50%);
   box-sizing: border-box;
   border: none;
   outline: none;
   border-radius: 6px;
+  background: none;
   font-size: 1em;
   font-family: 'Work Sans';
+  z-index: 1;
+}
+
+.icon {
+  position: absolute;
+  top: 50%;
+  left: 5px;
+  transform: translateY(-50%);
+  z-index: 2;
 }
 
 </style>

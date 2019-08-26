@@ -1,25 +1,26 @@
 <template>
-  <div class="card options">
-    <div class="btn-wrapper">
-      <opt-button back-color='#6657FF'/>
+  <transition name='fade' mode='out-in'>
+    <div v-if='!confirm' class="card options" key='!confirm'>
+      <div class="btn-wrapper">
+        <div class="btn" :class="{hover: onHover}" @mouseenter="onHover = true" @mouseleave="onHover = false" @click="$emit('add')">
+          <div class="path" style='background-color: #949DFF'></div>
+          <span class="name"><i class="fas fa-sm fa-plus"></i></span>
+        </div>
+      </div>
     </div>
-    <div class="btn-wrapper">
-      <opt-button back-color='#FF5757'/>
-    </div>
-  </div>
+  </transition>
 </template>
 
 <script lang='ts'>
 
-import { Component, Vue } from 'vue-property-decorator'
-import Button from '@/components/OptionsButton.vue'
+import { Component, Vue, Prop } from 'vue-property-decorator'
 
-@Component({
-  components: {
-    'opt-button': Button,
-  }
-})
-export default class OptionsComp extends Vue {}
+@Component
+export default class OptionsComp extends Vue {
+  @Prop(Boolean) confirm!: boolean
+
+  onHover: boolean = false
+}
 
 </script>
 
@@ -35,7 +36,39 @@ export default class OptionsComp extends Vue {}
 }
 
 .btn-wrapper {
-  flex-basis: 50%;
+  flex-basis: 100%;
+}
+
+.btn, .content, .path {
+  width: 100%;
+  height: 100%;
+}
+
+.btn {
+  position: relative;
+  cursor: pointer;
+}
+
+.path {
+  clip-path: circle(0px);
+  position: absolute;
+  transition-duration: .4s;
+}
+
+.name {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%,-50%);
+  transition-duration: .4s;
+}
+
+.btn.hover .path {
+  clip-path: circle(50px);
+}
+
+.btn.hover .name {
+  color: white;
 }
 
 </style>
