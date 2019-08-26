@@ -4,6 +4,16 @@
   src: url('/assets/WorkSans-Regular');
 }
 
+.fade-leave, .fade-enter-to {
+  opacity: 1 !important;
+  transition-duration: .5s;
+}
+
+.fade-leave-to, .fade-enter {
+  opacity: 0 !important;
+  transition-duration: .5s;
+}
+
 body {
   margin: 0;
   font-family: 'Work Sans';
@@ -15,6 +25,5 @@ body, input {
 
 .card {
   border-radius: 6px;
-  background-color: white;
-  box-shadow: 0 4px 8px rgba(0,0,0,.15);
+  background-color: #F5F5F5;
 }

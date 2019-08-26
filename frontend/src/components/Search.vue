@@ -49,6 +49,7 @@ export default class SearchComp extends Vue {
   border: none;
   outline: none;
   border-radius: 6px;
+  background: none;
   font-size: 1em;
   font-family: 'Work Sans';
   z-index: 1;

@@ -8,7 +8,11 @@
           />
         </div>
         <div class="options-wrapper">
-          <app-options/>
+          <app-options
+            :confirm='confirmOptions'
+            @add="addBook"
+            @cancel="cancelOptions"
+          />
         </div>
       </div>
       <div class="books">
@@ -21,19 +25,19 @@
               />
             </div>
           </transition-group>
-          <app-msg v-else-if="booksNotFound" key='doesnotexit'
+          <app-msg key='doesnotexit' v-else-if="booksNotFound"
             icon='search'
             msg='Esse livro não existe na sua biblioteca.'
           />
-          <app-msg v-else-if="noBooksOnLibrary" key='donthavebooks'
+          <app-msg key='naotemlivro' v-else-if="noBooksOnLibrary"
             icon='sad-cry'
             msg='Você não tem livros na biblioteca.'
           />
-          <app-msg v-else-if="reqError" key='errorondownload'
+          <app-msg key='errorondownload' v-else-if="reqError"
             icon='sad-tear'
             msg='Um erro ocorreu ao baixar os livros.'
           />
-          <app-msg v-else-if="isAppLoading" key='beingdownloaded'
+          <app-msg key='beingdownloaded' v-else-if="isAppLoading"
             icon='circle-notch'
             msg='Os seus livros estão sendo baixados.'
             :spin='true'
@@ -70,12 +74,23 @@ export default class App extends Vue {
   @State apiState!: 'error' | 'loading' | 'alright'
 
   search: string = ''
+  optionType: 'add' | '' = ''
+  confirmOptions: boolean = false
+
+  addBook() {
+    this.optionType = 'add'
+    this.confirmOptions = true
+  }
+  cancelOptions() {
+    this.confirmOptions = false
+    this.optionType = ''
+  }
 
   get getBooks(): Book[] {
     return this.books.filter(el => el.title.toLowerCase().includes(this.search.toLowerCase()))
   }
   get showBooks(): boolean {
-    return this.reqAlright && this.getBooks.length > 0 && this.search === ''
+    return this.reqAlright && this.getBooks.length > 0
   }
   get booksNotFound(): boolean {
     return this.reqAlright && this.getBooks.length === 0 && this.search !== ''
@@ -101,18 +116,8 @@ export default class App extends Vue {
 
 <style scoped>
 
-.fade-leave, .fade-enter-to {
-  opacity: 1;
-  transition-duration: .3s;
-}
-
-.fade-leave-to, .fade-enter {
-  opacity: 0;
-  transition-duration: .3s;
-}
-
 #app {
-  background-color: #FBFBFC;
+  background-color: white;
   position: fixed;
   width: 100%;
   height: 100%;
@@ -129,12 +134,12 @@ export default class App extends Vue {
 
 .search-wrapper {
   height: 40px;
-  flex-basis: 85%;
+  flex-basis: 94.5%;
 }
 
 .options-wrapper {
   height: 40px;
-  flex-basis: 15%;
+  flex-basis: 6.5%;
   margin-left: 20px;
 }
 
