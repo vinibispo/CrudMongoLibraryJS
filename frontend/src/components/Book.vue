@@ -64,7 +64,7 @@ export default class BookComp extends Vue {
     if (!this.id) {
       this.addBook({
         title: this.inpTitle,
-        description: this.description,
+        description: this.inpDesc,
       })
       this.$emit('cancel')
     }
