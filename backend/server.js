@@ -36,7 +36,7 @@ app.get('/books/add', (req, res) => {
     book.description = description
     book.save((err, doc) =>{
         if(err) res.json(err)
-        res.send(`The book ${book.title} has been added in ${book.toString()}`)
+        res.send(`The book ${book.title} has been added in your library`)
     })
 })
 
@@ -50,6 +50,14 @@ app.post('/books/add', (req, res) =>{
         res.send(`The book ${book.title} has been added in your library`)
     })
 })
+
+app.get('/books/delete', (req, res)=>{
+    Book.findByIdAndDelete(req.query.id,(err)=>{
+        if(err) res.json(err)
+        res.send(`The book ${req.query.id} has been dropped in your library`)
+    })
+})
+
 
 app.listen(4000, () => {
     console.log('Port at 4000...')
