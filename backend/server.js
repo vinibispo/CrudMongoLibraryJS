@@ -26,39 +26,29 @@ app.get('/books', (req, res) => {
     })
 })
 
-app.get('/books/add', (req, res) => {
-    let book = new Book()
-    const title = req.query.title
-    const author = req.query.author
-    const description = req.query.description
-    book.author = author
-    book.title = title
-    book.description = description
-    book.save((err, doc) =>{
-        if(err) res.json(err)
-        res.send(`The book ${book.title} has been added in your library`)
-    })
-})
-
-app.post('/books/add', (req, res) =>{
+// req.body.id, req.body.description, req.body.title
+app.post('/add', (req, res) =>{
     let book = new Book()
     book.title = req.body.title
     book.description = req.body.description
-    book.author = req.body.author
     book.save((err, doc) =>{
         if(err) res.json(err)
         res.send(`The book ${book.title} has been added in your library`)
     })
 })
 
-app.get('/books/delete', (req, res)=>{
-    Book.findByIdAndDelete(req.query.id,(err)=>{
-        if(err) res.json(err)
-        res.send(`The book ${req.query.id} has been dropped in your library`)
+// req.body.id, req.body.description, req.body.title
+app.post('/update', (req, res) =>{
+    id = req.query.id
+    Book.findByIdAndUpdate(id,(book)=>{
+        book.title = req.query.title
+        book.description = req.query.description
+        res.send(book.title)
     })
 })
 
-app.post('/books/delete', (req, res)=>{
+// req.body.id
+app.post('/delete', (req, res)=>{
     Book.findByIdAndDelete(req.body.id,(err)=>{
         if(err) res.json(err)
         res.send(`The book ${req.body.id} has been dropped in your library`)
