@@ -20,14 +20,10 @@ db.on('error', (err)=>{
     console.log(err)
 })
 
-
 app.get('/books', (req, res) => {
     Book.find({}, (err, book)=>{
         res.send(book)
     })
-})
-app.listen(4000, () => {
-    console.log('Port at 4000...')
 })
 
 app.get('/books/add', (req, res) => {
@@ -42,8 +38,21 @@ app.get('/books/add', (req, res) => {
         if(err) res.json(err)
         res.send(`The book ${book.title} has been added in ${book.toString()}`)
     })
-    
-    
+})
+
+app.post('/books/add', (req, res) =>{
+    let book = new Book()
+    book.title = req.body.title
+    book.description = req.body.description
+    book.author = req.body.author
+    book.save((err, doc) =>{
+        if(err) res.json(err)
+        res.send(`The book ${book.title} has been added in your library`)
+    })
+})
+
+app.listen(4000, () => {
+    console.log('Port at 4000...')
 })
 
 
