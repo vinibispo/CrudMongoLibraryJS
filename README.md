@@ -12,7 +12,7 @@ npm dev
 
 ### Production
 ```
-npm run build
+npm start
 ```
 ### Frontend
 ```
