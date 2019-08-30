@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
-import axios from 'axios'
+import axios, { AxiosResponse } from 'axios'
 
 const getId = () => {
   let d = new Date().getTime()
@@ -34,28 +34,19 @@ interface State {
 export default new Vuex.Store({
   state: {
     apiState: 'alright',
-    books: [
-      {
-        id: 'book1',
-        title: 'book1',
-        description: 'desc1',
-      },
-      {
-        id: 'book2',
-        title: 'book2',
-        description: 'desc2',
-      },
-      {
-        id: 'book3',
-        title: 'book3',
-        description: 'desc3',
-      },
-    ],
+    books: [],
   } as State,
   mutations: {
     getBooks(state: State) {
-      axios.get('/books').then((books: any) => {
-        state.books = books
+      axios.get('/books').then((res: AxiosResponse<any[]>) => {
+        const arr = []
+        for (const el of res.data)
+          arr.push({
+            id: el._id,
+            description: el.description,
+            title: el.title,
+          })
+        state.books = arr
       })
     },
     deleteBookById(state: State, id: string) {

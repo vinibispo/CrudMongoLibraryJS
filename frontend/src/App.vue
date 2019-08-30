@@ -22,7 +22,7 @@
             @cancel='v => addingBook = false'
           />
         </transition>
-        <transition name='fade' mode='out-in'>
+        <transition v-if='!adding' name='fade' mode='out-in'>
           <transition-group key='tras' v-if='showBooks' name='fade'>
             <div v-for='b of getBooks' :key='b.id'>
               <app-book

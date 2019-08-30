@@ -1,7 +1,7 @@
 
 @font-face {
   font-family: 'Work Sans';
-  src: url('/assets/WorkSans-Regular');
+  src: url('/WorkSans-Regular.otf');
 }
 
 .fade-leave, .fade-enter-to {
