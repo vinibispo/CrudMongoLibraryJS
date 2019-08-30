@@ -58,6 +58,12 @@ app.get('/books/delete', (req, res)=>{
     })
 })
 
+app.post('/books/delete', (req, res)=>{
+    Book.findByIdAndDelete(req.body.id,(err)=>{
+        if(err) res.json(err)
+        res.send(`The book ${req.body.id} has been dropped in your library`)
+    })
+})
 
 app.listen(4000, () => {
     console.log('Port at 4000...')
