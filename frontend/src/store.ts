@@ -1,5 +1,6 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
+import axios from 'axios'
 
 const getId = () => {
   let d = new Date().getTime()
@@ -52,22 +53,37 @@ export default new Vuex.Store({
     ],
   } as State,
   mutations: {
+    getBooks(state: State) {
+      axios.get('/books').then((books: any) => {
+        state.books = books
+      })
+    },
     deleteBookById(state: State, id: string) {
-      const i = state.books.findIndex(el => el.id === id)
-      state.books.splice(i, 1)
+      axios.post('/delete', {id}).then(() => {
+        const i = state.books.findIndex(el => el.id === id)
+        state.books.splice(i, 1)
+      })
     },
     addBook(state: State, {title, description}: {title: string, description: string}) {
-      state.books.push({
-        title, description, id: getId(),
+      const id = getId()
+      const book = {
+        title, description, id,
+      }
+      axios.post('/add', book).then(() => {
+        state.books.push({
+          title, description, id: getId(),
+        })
       })
     },
     editBook(state: State, {title, description, id}: {title: string, id: string, description: string}) {
-      const i = state.books.findIndex(el => el.id === id)
-      const slice = state.books.slice()
-      slice.splice(i, 1, {
-        id, description, title,
+      axios.post('/update', {title, description, id}).then(() => {
+        const i = state.books.findIndex(el => el.id === id)
+        const slice = state.books.slice()
+        slice.splice(i, 1, {
+          id, description, title,
+        })
+        state.books = slice.slice()
       })
-      state.books = slice.slice()
     },
   },
   actions: {
