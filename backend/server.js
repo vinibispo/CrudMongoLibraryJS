@@ -38,16 +38,15 @@ app.post('/add', (req, res) =>{
 })
 
 // req.body.id, req.body.description, req.body.title
-app.post('/update', (req, res) =>{
-    id = req.query.id
-    Book.findByIdAndUpdate(id,(book)=>{
-        book.title = req.query.title
-        book.description = req.query.description
-        res.send(book.title)
-    })
+app.get('/update', (req, res) =>{
+    id = req.body.id
+    Book.findByIdAndUpdate(id,{
+        title: req.body.title,
+        description: req.body.description
+    },
+    )
 })
 
-// req.body.id
 app.post('/delete', (req, res)=>{
     Book.findByIdAndDelete(req.body.id,(err)=>{
         if(err) res.json(err)
@@ -58,5 +57,3 @@ app.post('/delete', (req, res)=>{
 app.listen(4000, () => {
     console.log('Port at 4000...')
 })
-
-
