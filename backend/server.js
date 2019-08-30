@@ -38,7 +38,7 @@ app.post('/add', (req, res) =>{
 })
 
 // req.body.id, req.body.description, req.body.title
-app.get('/update', (req, res) =>{
+app.post('/update', (req, res) =>{
     id = req.body.id
     Book.findByIdAndUpdate(id,{
         title: req.body.title,
